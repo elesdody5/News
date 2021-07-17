@@ -1,5 +1,7 @@
 package com.news.data.remote
 
-interface RemoteDataSource {
+import com.news.data.entity.News
 
+interface RemoteDataSource {
+    suspend fun getNews(country: String, category: String): News
 }

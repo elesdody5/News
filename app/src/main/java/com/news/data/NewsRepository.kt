@@ -1,10 +1,18 @@
 package com.news.data
 
+import androidx.lifecycle.LiveData
+import com.news.data.entity.Article
+import com.news.data.local.LocalDataSource
+import com.news.data.remote.RemoteDataSource
 import com.news.data.sharedpreferences.SharedPreferencesStorage
 import javax.inject.Inject
 
 class NewsRepository
-@Inject constructor(private val sharedPreferencesStorage: SharedPreferencesStorage) : Repository {
+@Inject constructor(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDatasource: LocalDataSource,
+    private val sharedPreferencesStorage: SharedPreferencesStorage
+) : Repository {
     override fun isFirstTime(): Boolean {
         return sharedPreferencesStorage.isFirstTime
     }
@@ -16,4 +24,9 @@ class NewsRepository
     override fun saveCategories(categories: Array<String?>) {
         sharedPreferencesStorage.saveCategories(categories)
     }
+
+    override fun getNewsList(): LiveData<List<Article>> {
+        return localDatasource.getAllNews()
+    }
+
 }

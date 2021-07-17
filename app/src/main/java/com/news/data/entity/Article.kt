@@ -1,10 +1,14 @@
 package com.news.data.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity(tableName = "Article")
 data class Article(
 
-    var id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
 
     @Json(name = "publishedAt")
     val publishedAt: String? = null,
@@ -27,7 +31,6 @@ data class Article(
     @Json(name = "content")
     val content: String? = null,
 
-    @Json(name = "favourite")
     val favourite: Boolean = false
 
 )

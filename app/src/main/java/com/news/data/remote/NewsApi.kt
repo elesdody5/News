@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface NewsApi {
     @GET("/v2/top-headlines")
-    suspend fun getNews(countryCode: String): News
+    suspend fun getNews(): News
 }

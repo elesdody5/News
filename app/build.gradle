@@ -102,4 +102,6 @@ dependencies {
     //local test
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 }

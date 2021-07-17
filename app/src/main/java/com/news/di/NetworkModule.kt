@@ -2,8 +2,11 @@ package com.news.di
 
 import com.news.BuildConfig
 import com.news.data.remote.NewsApi
+import com.news.data.remote.NewsRemoteDataSource
+import com.news.data.remote.RemoteDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
