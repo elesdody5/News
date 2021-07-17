@@ -23,7 +23,7 @@ abstract class DataSourceModuleBind {
 // Install this module in Hilt-generated SingletonComponent
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class DataSourceModuleProvides {
+class DataSourceModuleProvides {
 
     @Provides
     fun provideLocalDataSource(newsDatabase: NewsDatabase): LocalDataSource {

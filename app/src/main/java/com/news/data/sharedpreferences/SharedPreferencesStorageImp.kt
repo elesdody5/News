@@ -11,17 +11,19 @@ class SharedPreferencesStorageImp @Inject constructor(private val sharedPreferen
 
     override val isFirstTime: Boolean
         get() = sharedPreferences.getString(
-            COUNTRY_KEY,
-            null
-        ) != null && sharedPreferences.getString(
             CATEGORIES_KEY, null
         ) != null
 
     override fun saveCountry(country: String) {
-        sharedPreferences.edit { putString(COUNTRY_KEY, country) }
+        sharedPreferences.edit(commit = true) { putString(COUNTRY_KEY, country) }
     }
 
     override fun saveCategories(categories: Array<String?>) {
-        sharedPreferences.edit { putStringSet(CATEGORIES_KEY, categories.toHashSet()) }
+        sharedPreferences.edit(commit = true) {
+            putStringSet(
+                CATEGORIES_KEY,
+                categories.toHashSet()
+            )
+        }
     }
 }
