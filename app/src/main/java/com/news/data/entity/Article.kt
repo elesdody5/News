@@ -7,8 +7,9 @@ import com.squareup.moshi.Json
 @Entity(tableName = "Article")
 data class Article(
 
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey()
+    @Json(name = "title")
+    val title: String,
 
     @Json(name = "publishedAt")
     val publishedAt: String? = null,
@@ -22,15 +23,12 @@ data class Article(
     @Json(name = "description")
     val description: String? = null,
 
-    @Json(name = "title")
-    val title: String? = null,
-
     @Json(name = "url")
     val url: String? = null,
 
     @Json(name = "content")
     val content: String? = null,
 
-    val favourite: Boolean = false
+    var favourite: Boolean? = null,
 
-)
+    )

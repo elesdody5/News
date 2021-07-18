@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class NewsRemoteDataSource @Inject constructor(private val newsApi: NewsApi) : RemoteDataSource {
     override suspend fun getNews(country: String, category: String): News {
-        return newsApi.getNews()
+        return newsApi.getNews(country,category)
     }
 }

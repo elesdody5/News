@@ -29,4 +29,19 @@ class NewsRepository
         return localDatasource.getAllNews()
     }
 
+    override suspend fun refreshList() {
+        val country = sharedPreferencesStorage.getCountry()
+        val categories = sharedPreferencesStorage.getCategories()
+
+        if (country != null && categories != null) {
+            val news = remoteDataSource.getNews(country, categories.elementAt(0))
+            localDatasource.insertArticles(news.articles)
+        }
+
+    }
+
+    override suspend fun updateArticle(article: Article) {
+        localDatasource.updateArticle(article)
+    }
+
 }

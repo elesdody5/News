@@ -45,7 +45,7 @@ interface NewsDao {
      * @param article the article to be inserted.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertArticle(article: Article)
+    suspend fun insertArticle(articles: List<Article>)
 
     /**
      * Update a article.
