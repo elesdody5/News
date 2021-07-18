@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    val categories = mutableListOf<String>()
+    private val categories = mutableListOf<String>()
 
     var selectedCountry by mutableStateOf("")
 

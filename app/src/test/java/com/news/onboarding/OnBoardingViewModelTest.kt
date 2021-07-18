@@ -35,12 +35,29 @@ class OnBoardingViewModelTest {
     @Test
     fun onConfirmButtonClick_hasCountryAndCategories_navigateToHome() {
 
-        onBoardingViewModel.country = "US"
-        onBoardingViewModel.categories[0] = "1"
-        onBoardingViewModel.categories[1] = "2"
-        onBoardingViewModel.categories[2] = "3"
+        onBoardingViewModel.selectedCountry = "US"
+        onBoardingViewModel.addCategory("1")
+        onBoardingViewModel.addCategory("2")
+        onBoardingViewModel.addCategory("3")
         onBoardingViewModel.onConfirmButtonClicked()
         val navigation = onBoardingViewModel.navigation.getOrAwaitValue()
         Assert.assertEquals(R.id.action_onBoardingFragment_to_homeFragment, navigation)
+    }
+
+    @Test
+    fun onConfirmButtonClick_hasNoCountryORCategories_showError() {
+        onBoardingViewModel.onConfirmButtonClicked()
+        val error = onBoardingViewModel.errorMessage.getOrAwaitValue()
+        Assert.assertEquals(R.string.onBoarding_error_message, error)
+    }
+
+    @Test
+    fun addCategories_moreThanThree_showErrorMessage() {
+        onBoardingViewModel.addCategory("1")
+        onBoardingViewModel.addCategory("2")
+        onBoardingViewModel.addCategory("3")
+        onBoardingViewModel.addCategory("4")
+        val error = onBoardingViewModel.errorMessage.getOrAwaitValue()
+        Assert.assertEquals(R.string.select_categories_error, error)
     }
 }
