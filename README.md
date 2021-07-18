@@ -1,26 +1,30 @@
-# Jetpack Compose Basics Codelab
+# What is the project
+Headlines news app to see news in selected country and category.
 
-This folder contains the source code for the solution of the
-[Jetpack Compose Basics codelab](https://developer.android.com/codelabs/jetpack-compose-basics).
+# Main Features
+1. Kotlin
+1. MVVM
+1. Jetpack Compose
+1. MutableState
+1. Hilt
+1. Navigation Components
+1. Retrofit2
+1. Single Activity Architecture
+2. Offline caching
+3. Search
+4. Favourites
+5. onBoarding (category, country)
+6. Unit Test
 
-In this codelab you will go hands-on and learn the fundamentals of declarative UI and
-[Jetpack Compose](https://developer.android.com/jetpack/compose), working with state, layouts
-and theming.
 
-## License
 
-```
-Copyright 2020 The Android Open Source Project
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-    https://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+# References
+1. https://github.com/android/compose-samples
+1. https://developer.android.com/jetpack/compose
+1. https://developer.android.com/jetpack/compose/state
+2. https://developer.android.com/codelabs/android-dagger-to-hilt#0
+3. https://github.com/android/architecture-samples
+
