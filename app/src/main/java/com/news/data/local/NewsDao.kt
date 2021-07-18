@@ -35,6 +35,9 @@ interface NewsDao {
      *
      * @return all articles.
      */
+    @Query("SELECT * FROM Article WHERE category == :selectedCategory ")
+    fun getArticles(selectedCategory: String?): LiveData<List<Article>>
+
     @Query("SELECT * FROM Article")
     fun getArticles(): LiveData<List<Article>>
 
@@ -44,7 +47,7 @@ interface NewsDao {
      *
      * @param article the article to be inserted.
      */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertArticle(articles: List<Article>)
 
     /**

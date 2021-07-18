@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,7 +27,7 @@ fun NewsCard(
     addFavourite: (Article) -> Unit,
     removeFavourite: (Article) -> Unit,
 ) {
-    val isFavourite = remember { mutableStateOf(article.favourite) }
+    val isFavourite =  mutableStateOf(article.favourite)
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
@@ -79,10 +80,8 @@ fun NewsCard(
                     )
                 }
             }
-
-            val des = article.description.toString()
             Text(
-                text = des,
+                text = article.description ?: "",
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentWidth(Alignment.End),

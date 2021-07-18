@@ -1,5 +1,6 @@
 package com.news.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.news.data.entity.Article
 import com.news.data.local.LocalDataSource
@@ -29,13 +30,18 @@ class NewsRepository
         return localDatasource.getAllNews()
     }
 
-    override suspend fun refreshList() {
+    override suspend fun refreshList(category: String?) {
         val country = sharedPreferencesStorage.getCountry()
         val categories = sharedPreferencesStorage.getCategories()
-
+        val selectedCategory = category ?: categories?.elementAt(0) ?: ""
         if (country != null && categories != null) {
-            val news = remoteDataSource.getNews(country, categories.elementAt(0))
-            localDatasource.insertArticles(news.articles)
+            try {
+                val news = remoteDataSource.getNews(country, selectedCategory)
+                news.articles?.forEach { article -> article.category = selectedCategory }
+                localDatasource.insertArticles(news.articles)
+            } catch (e: Exception) {
+                Log.e("NewsRepository", "No internetConnection ")
+            }
         }
 
     }
@@ -46,6 +52,10 @@ class NewsRepository
 
     override fun getFavourites(): LiveData<List<Article>> {
         return localDatasource.getFavourites()
+    }
+
+    override fun getCategories(): Set<String>? {
+        return sharedPreferencesStorage.getCategories()
     }
 
 }

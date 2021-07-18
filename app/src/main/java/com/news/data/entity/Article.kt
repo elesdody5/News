@@ -7,7 +7,7 @@ import com.squareup.moshi.Json
 @Entity(tableName = "Article")
 data class Article(
 
-    @PrimaryKey()
+    @PrimaryKey
     @Json(name = "title")
     val title: String,
 
@@ -29,5 +29,7 @@ data class Article(
     @Json(name = "content")
     val content: String? = null,
 
+    var category: String?,
+
     var favourite: Boolean?,
-    )
+)

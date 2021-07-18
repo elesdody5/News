@@ -8,7 +8,8 @@ interface Repository {
     fun saveCountry(country: String)
     fun saveCategories(categories: Array<String?>)
     fun getNewsList(): LiveData<List<Article>>
-    suspend fun refreshList()
-    suspend fun  updateArticle(article: Article)
+    suspend fun refreshList(category: String?)
+    suspend fun updateArticle(article: Article)
     fun getFavourites(): LiveData<List<Article>>
+    fun getCategories(): Set<String>?
 }

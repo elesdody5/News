@@ -1,12 +1,9 @@
 package com.news.home
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.*
-import androidx.navigation.fragment.DialogFragmentNavigator
 import com.news.data.Repository
 import com.news.data.entity.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +15,8 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private val _webUrl = MutableLiveData<String?>()
 
+    var selectedCategory by mutableStateOf("")
+
     val webUrl: LiveData<String?>
         get() = _webUrl
 
@@ -28,17 +27,19 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
     val navigation: LiveData<Int?>
         get() = _navigation
 
-    val newsListLiveDate = repository.getNewsList().switchMap {
+    val categories = repository.getCategories()
+
+    var newsListLiveDate = repository.getNewsList().switchMap {
         _allList = it
         _newsList.value = it
         _newsList
     }
     var selectedQuery: String by mutableStateOf("")
 
-
     init {
         viewModelScope.launch {
-            repository.refreshList()
+            repository.refreshList(categories?.elementAt(0))
+            selectedCategory = categories?.elementAt(0) ?: ""
         }
     }
 
@@ -87,7 +88,29 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
                 _newsList.value = it
             }
         } else {
-            _newsList.value = _allList
+            updateData(category = selectedCategory)
+        }
+    }
+
+    fun onCategorySelected(category: String) {
+        selectedCategory = category
+        viewModelScope.launch {
+            repository.refreshList(category)
+            updateData(category)
+        }
+    }
+
+    private fun updateData(category: String) {
+        _newsList.value = _allList
+        if (category.isNotEmpty()) {
+            val filteredList =
+                _newsList.value?.filter { article ->
+                    article.category == category
+                }
+
+            filteredList?.let {
+                _newsList.value = it
+            }
         }
     }
 }

@@ -5,6 +5,10 @@ import com.news.data.entity.Article
 import javax.inject.Inject
 
 class NewsLocalDataSource @Inject constructor(private val newsDao: NewsDao) : LocalDataSource {
+    override fun getAllNews(category: String?): LiveData<List<Article>> {
+        return newsDao.getArticles(category)
+    }
+
     override fun getAllNews(): LiveData<List<Article>> {
         return newsDao.getArticles()
     }
@@ -20,6 +24,6 @@ class NewsLocalDataSource @Inject constructor(private val newsDao: NewsDao) : Lo
     }
 
     override fun getFavourites(): LiveData<List<Article>> {
-      return  newsDao.getFavouritesArticles()
+        return newsDao.getFavouritesArticles()
     }
 }

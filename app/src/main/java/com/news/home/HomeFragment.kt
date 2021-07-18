@@ -15,12 +15,14 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.news.home.componet.HomeChipGrop
 import com.news.home.componet.HomeMenuItem
 import com.news.home.componet.NewsCard
 import com.news.home.componet.NewsSearchView
@@ -82,6 +84,11 @@ class HomeFragment : Fragment() {
         }) {
             Column {
                 NewsSearchView(viewModel::onQueryChange, viewModel.selectedQuery)
+                HomeChipGrop(
+                    viewModel.categories?.toTypedArray() ?: emptyArray(),
+                    viewModel::onCategorySelected,
+                    viewModel.selectedCategory
+                )
                 LazyColumn {
                     items(news.value ?: emptyList()) { news ->
                         NewsCard(
