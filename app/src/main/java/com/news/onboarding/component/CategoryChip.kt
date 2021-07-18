@@ -8,6 +8,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -16,9 +19,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ChipGrop(
     categoriesList: Array<String>,
-    selectedCategory: String,
-    onSelectedCategoryChanged: (String) -> Unit
-) {
+    addCategory: (String) -> Boolean,
+    removeCategory: (String) -> Unit,
+
+    ) {
 
     ScrollableTabRow(
         selectedTabIndex = 2, modifier = Modifier.padding(vertical = 10.dp),
@@ -27,8 +31,8 @@ fun ChipGrop(
         categoriesList.forEach { category ->
             CategoryChip(
                 category,
-                selectedCategory == category,
-                onSelectedCategoryChanged
+                addCategory,
+                removeCategory
             )
         }
     }
@@ -37,24 +41,33 @@ fun ChipGrop(
 @Composable
 fun CategoryChip(
     category: String,
-    isSelected: Boolean = false,
-    onSelectedCategoryChanged: (String) -> Unit,
+    addCategory: (String) -> Boolean,
+    removeCategory: (String) -> Unit,
 ) {
+    val isSelected = remember { mutableStateOf(false) }
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         elevation = 8.dp,
         shape = MaterialTheme.shapes.medium,
-        color = if (!isSelected) Color.LightGray else MaterialTheme.colors.primary
+        color = if (!isSelected.value) Color.LightGray else MaterialTheme.colors.primary
     ) {
-        Row(modifier = Modifier
-            .toggleable(
-                value = isSelected,
-                onValueChange = {
-                    onSelectedCategoryChanged(category)
-                }
-            )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .toggleable(
+                    value = isSelected.value,
+                    onValueChange = {
+                        if (!isSelected.value) {
+                            val added = addCategory(category)
+                            if (added) isSelected.value = true
+                        } else {
+                            removeCategory(category)
+                            isSelected.value = false
+                        }
+                    }
+                )
         ) {
-            if (isSelected)
+            if (isSelected.value)
                 Icon(
                     Icons.Default.Check,
                     "checked"

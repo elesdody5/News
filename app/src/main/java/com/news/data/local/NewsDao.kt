@@ -56,4 +56,7 @@ interface NewsDao {
     @Update
     suspend fun updateArticle(article: Article): Int
 
+    @Query("SELECT * FROM Article WHERE favourite == :isFavourite")
+    fun getFavouritesArticles(isFavourite: Boolean = true): LiveData<List<Article>>
+
 }

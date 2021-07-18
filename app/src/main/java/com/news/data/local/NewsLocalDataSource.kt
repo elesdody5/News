@@ -18,4 +18,8 @@ class NewsLocalDataSource @Inject constructor(private val newsDao: NewsDao) : Lo
     override suspend fun updateArticle(article: Article) {
         newsDao.updateArticle(article)
     }
+
+    override fun getFavourites(): LiveData<List<Article>> {
+      return  newsDao.getFavouritesArticles()
+    }
 }

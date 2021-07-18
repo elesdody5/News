@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.toLowerCase
 import androidx.lifecycle.*
+import androidx.navigation.fragment.DialogFragmentNavigator
 import com.news.data.Repository
 import com.news.data.entity.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,11 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private val _newsList = MutableLiveData<List<Article>>()
     private var _allList = listOf<Article>()
+
+    private val _navigation = MutableLiveData<Int?>()
+    val navigation: LiveData<Int?>
+        get() = _navigation
+
     val newsListLiveDate = repository.getNewsList().switchMap {
         _allList = it
         _newsList.value = it
@@ -61,6 +67,14 @@ class HomeViewModel @Inject constructor(private val repository: Repository) : Vi
 
     fun clearUrl() {
         _webUrl.value = null
+    }
+
+    fun clearNavigation() {
+        _navigation.value = null
+    }
+
+    fun navigate(destination: Int) {
+        _navigation.value = destination
     }
 
     private fun filterTasks(query: String) {

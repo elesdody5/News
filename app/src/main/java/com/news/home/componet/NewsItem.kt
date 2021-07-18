@@ -63,10 +63,12 @@ fun NewsCard(
                     onClick = {
                         if (isFavourite.value == true) {
                             removeFavourite.invoke(article)
+                            isFavourite.value = false
                         } else {
                             addFavourite.invoke(article)
+                            isFavourite.value = true
                         }
-                        isFavourite.value != isFavourite.value
+
                     },
 
                     ) {

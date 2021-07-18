@@ -29,6 +29,5 @@ data class Article(
     @Json(name = "content")
     val content: String? = null,
 
-    var favourite: Boolean? = null,
-
+    var favourite: Boolean?,
     )

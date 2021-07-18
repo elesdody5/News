@@ -7,4 +7,5 @@ interface LocalDataSource {
     fun getAllNews(): LiveData<List<Article>>
     suspend fun insertArticles(articles: List<Article>?)
     suspend fun updateArticle(article: Article)
+    fun getFavourites(): LiveData<List<Article>>
 }

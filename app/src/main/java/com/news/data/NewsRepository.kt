@@ -44,4 +44,8 @@ class NewsRepository
         localDatasource.updateArticle(article)
     }
 
+    override fun getFavourites(): LiveData<List<Article>> {
+        return localDatasource.getFavourites()
+    }
+
 }

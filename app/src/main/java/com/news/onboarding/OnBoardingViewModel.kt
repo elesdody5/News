@@ -39,11 +39,19 @@ class OnBoardingViewModel @Inject constructor(private val repository: Repository
         }
     }
 
-    fun addCategory(category: String) {
+    fun addCategory(category: String): Boolean {
         if (categories.size < 3) {
             categories.add(category)
             selectedCategory = category
+            return true
         } else
             _errorMessage.value = R.string.select_categories_error
+        return false
+    }
+
+    fun removeCategory(category: String) {
+        if (categories.isNotEmpty()) {
+            categories.remove(category)
+        }
     }
 }

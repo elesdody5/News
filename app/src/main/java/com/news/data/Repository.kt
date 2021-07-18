@@ -10,4 +10,5 @@ interface Repository {
     fun getNewsList(): LiveData<List<Article>>
     suspend fun refreshList()
     suspend fun  updateArticle(article: Article)
+    fun getFavourites(): LiveData<List<Article>>
 }
